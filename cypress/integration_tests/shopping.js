@@ -13,27 +13,32 @@ describe('Shopping feature', function() {
     const signInPage = new SignInPage()
     this.sum = 0.0
 
-    beforeEach(function() {
+    beforeEach(function() { 
         cy.fixture("users").then(function(data){
+            cy.wrap(data.username).as('myusername')
+            cy.wrap(data.password).as('mypassword')
             cy.login(data.username, data.password)
-        })        
+        })  
       })
 
       it('Check shopping 1', function() {  
         loginByForm("YY", "UU")
       })
 
-      it('Check shopping', function() {  
+      it('Check shopping', function() { 
+        cy.log("USERNAME = " + this.myusername)   
              
         this.sum = 0.0   
         cy.visit(Cypress.env('url') + first_product_end_point)
         let isFound = false
+        cy.wrap(isFound).as('found')
         cy.get('tbody tr', { timeout: 5000 }).each(($el, index, $list) => {
             cy.log("INDEX = " + index)
             if(index > 0 && index < $list.length - 1){
                 const product =  $el.find('td:nth-child(3)').text()
                 if(product.includes("Male Adult")){
                     isFound = true
+                    cy.wrap(true).as('found')
                     const price = $el.find("td:nth-child(4)").text()
                     this.sum = this.sum + parseFloat(price)
                     cy.wrap($el).find("td:nth-child(5)").find('.Button').click()
@@ -42,6 +47,9 @@ describe('Shopping feature', function() {
           })
 
         isFound = false
+        cy.get('@found').then(function(value){
+            cy.log("value = " + value)
+        })
 
         cy.visit(Cypress.env('url') + second_product_end_point)
         cy.get('tbody tr').each(($el, index, $list) => { 
