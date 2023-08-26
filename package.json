@@ -1,0 +1,17 @@
+{
+  "name": "petstore",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules\\.bin\\cypress run",
+    "headTest": "run test --headed",
+    "chromeTest": "npm run test --headed --browser --chrome",
+    "recordTest": "npm run test --headed  --record --key 56a993ec-2bf4-44ed-b818-6c69d4eefb82"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^12.17.2"
+  }
+}
