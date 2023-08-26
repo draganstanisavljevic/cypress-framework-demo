@@ -15,11 +15,8 @@ describe('Shopping feature', function() {
 
     beforeEach(function() {
         cy.fixture("users").then(function(data){
-            let username = data.username
-            let password = data.password
-            cy.login(username, password)
-        })
-        
+            cy.login(data.username, data.password)
+        })        
       })
 
       it('Check shopping 1', function() {  
