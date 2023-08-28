@@ -48,7 +48,7 @@ describe('Shopping feature', function() {
         cy.visit(Cypress.env('url') + second_product_end_point)
         test("Venomless")
 
-        cy.get('[colspan="7"]').then(function(data){
+        cy.get('[colspan="8"]').then(function(data){
             expect(this.sum).to.be.equal(parseFloat(data.text().substring(12)))          
         })
          
